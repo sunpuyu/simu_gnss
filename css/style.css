@@ -1,0 +1,309 @@
+/* ========================
+   全局 Reset 与基础
+   ======================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  font-size: 14px;
+  background: #1b2133;
+  color: #d0d8ef;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ========================
+   主布局
+   ======================== */
+#app {
+  display: flex;
+  height: 100vh;
+  gap: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid #2d3a5a;
+}
+
+#leftPanel {
+  max-width: 48%;
+}
+
+#rightPanel {
+  border-right: none;
+}
+
+.panel h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #8ab4f8;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #2d3a5a;
+}
+
+/* ========================
+   行 / 网格
+   ======================== */
+.section-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #9aaac8;
+}
+
+/* ========================
+   输入元素
+   ======================== */
+input[type="text"],
+input[type="number"] {
+  background: #232c45;
+  border: 1px solid #354060;
+  border-radius: 4px;
+  color: #d0d8ef;
+  padding: 5px 8px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #4e7ef5;
+}
+
+input[readonly] {
+  background: #1a2035;
+  cursor: default;
+  color: #7a9acc;
+}
+
+/* ========================
+   按钮
+   ======================== */
+button,
+.button-file {
+  padding: 6px 14px;
+  border: 1px solid #354060;
+  border-radius: 4px;
+  background: #2a3550;
+  color: #c0cfee;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+}
+
+button:hover,
+.button-file:hover { background: #374470; border-color: #5575cc; }
+button:active,
+.button-file:active { background: #2c3a60; }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.button-file:focus-visible {
+  outline: 2px solid #4e7ef5;
+  outline-offset: 1px;
+}
+
+button.primary {
+  background: #2d59d4;
+  border-color: #3f6ee8;
+  color: #fff;
+}
+button.primary:hover { background: #3666e8; }
+button.primary:disabled { background: #1e3870; border-color: #2a4a90; }
+
+button.active-mode {
+  background: #1a7f55;
+  border-color: #22b575;
+  color: #fff;
+}
+
+/* ========================
+   状态提示
+   ======================== */
+.status {
+  font-size: 12px;
+  color: #f5a623;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.status.ok { color: #4cdb9a; }
+.status.error { color: #f45c5c; }
+
+/* ========================
+   Canvas 区块
+   ======================== */
+.canvas-box {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  border: 1px solid #2d3a5a;
+  border-radius: 6px;
+  background: #151c2e;
+  overflow: hidden;
+}
+
+.canvas-box.small { flex: 0 0 110px; min-height: 0; }
+.canvas-box.large { flex: 1; }
+
+.canvas-box canvas {
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sub-title {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-size: 11px;
+  color: #576c99;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 隐藏 file input，label for 触发仍有效 */
+.hidden-file {
+  display: none;
+}
+
+#tooltip {
+  position: fixed;
+  display: none;
+  background: rgba(12, 18, 40, 0.92);
+  color: #d0e4ff;
+  border: 1px solid #3a4d80;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 9999;
+  white-space: pre;
+  line-height: 1.7;
+  box-shadow: 0 2px 10px #00000060;
+}
+
+/* ========================
+   弹窗遮罩与内容
+   ======================== */
+#modalRoot {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 5000;
+}
+
+#modalRoot.open { display: flex; }
+
+.modal-box {
+  background: #1e2840;
+  border: 1px solid #3a4d80;
+  border-radius: 8px;
+  padding: 20px 24px;
+  min-width: 320px;
+  max-width: 560px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px #00000080;
+}
+
+.modal-box h3 {
+  font-size: 15px;
+  color: #8ab4f8;
+  margin-bottom: 14px;
+}
+
+.modal-form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.modal-form-row label {
+  flex: 0 0 110px;
+  font-size: 12px;
+  color: #9aaac8;
+  flex-direction: row;
+  align-items: center;
+}
+
+.modal-form-row input {
+  flex: 1;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* 选星弹窗表格 */
+.sat-bind-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.sat-bind-table th,
+.sat-bind-table td {
+  padding: 5px 10px;
+  text-align: center;
+  border-bottom: 1px solid #2a3550;
+}
+.sat-bind-table th {
+  color: #8ab4f8;
+  background: #1a2035;
+  font-weight: 600;
+}
+.sat-bind-table tr:hover td { background: #1e2a45; }
+.sat-bind-table select {
+  background: #232c45;
+  border: 1px solid #354060;
+  color: #d0d8ef;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #354060; border-radius: 3px; }

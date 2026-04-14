@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>室内天线转发卫星信号定位系统仿真</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="leftPanel" class="panel">
+      <h2>星历解析与星空可视化</h2>
+
+      <div class="section-row">
+        <label id="btnLoadEphemeris" class="button-file" for="fileEphemeris" role="button" tabindex="0">读取星历文件</label>
+        <input id="txtStartTime" type="text" placeholder="星历起始时间" readonly>
+        <input id="txtEndTime" type="text" placeholder="星历结束时间" readonly>
+        <input id="fileEphemeris" class="hidden-file" type="file">
+      </div>
+
+      <div class="section-row grid-4">
+        <label>
+          基准点经度
+          <input id="inpRefLon" type="number" step="0.000001" placeholder="118.8800">
+        </label>
+        <label>
+          基准点纬度
+          <input id="inpRefLat" type="number" step="0.000001" placeholder="31.9500">
+        </label>
+        <label>
+          基准点高程(m)
+          <input id="inpRefH" type="number" step="0.1" placeholder="20.5">
+        </label>
+        <label>
+          参考时间
+          <input id="inpRefTime" type="text" placeholder="YYYY-MM-DD HH:MM:SS">
+        </label>
+      </div>
+
+      <div class="section-row">
+        <button id="btnConfirmCalc" class="primary">确认计算</button>
+        <span id="leftStatus" class="status"></span>
+      </div>
+
+      <div class="canvas-box">
+        <canvas id="skyCanvas"></canvas>
+      </div>
+    </section>
+
+    <section id="rightPanel" class="panel">
+      <h2>室内建模与仿真</h2>
+
+      <div class="section-row">
+        <button id="btnBindSat">天线选星</button>
+        <button id="btnSingleSim" class="primary">单天线仿真</button>
+        <button id="btnDualSim" class="primary">双天线仿真</button>
+        <span id="rightStatus" class="status"></span>
+      </div>
+
+      <div class="canvas-box small">
+        <div class="sub-title">天线配置区（点击天线设置）</div>
+        <canvas id="antennaCanvas"></canvas>
+      </div>
+
+      <div class="canvas-box large">
+        <div class="sub-title">室内地板区（点击设置长宽）</div>
+        <canvas id="floorCanvas"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <div id="tooltip"></div>
+  <div id="modalRoot"></div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
